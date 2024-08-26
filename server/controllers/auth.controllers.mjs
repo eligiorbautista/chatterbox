@@ -4,16 +4,16 @@ import generateTokenAndSetCookie from "../utils/generateToken.mjs";
 
 export const register = async (req, res) => {
   try {
-    const { fullName, username, password, confirmPassword, gender } = req.body;
+    const { fullName, email, password, confirmPassword, gender } = req.body;
 
     // check if password and confirm password match
     if (password !== confirmPassword) {
       return res.status(400).json({ error: "Passwords don't match." });
     }
 
-    const user = await User.findOne({ username: username });
+    const user = await User.findOne({ email: email });
 
-    // check if username already exists
+    // check if email already exists
     if (user) {
       return res.status(400).json({ error: "Username already exists." });
     }
@@ -25,12 +25,12 @@ export const register = async (req, res) => {
     // api to set default avatar for the users
     // https://avatar-placeholder.iran.liara.run/document
 
-    const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${username}`;
-    const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${username}`;
+    const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${fullName.split(" ")[0]}`;
+    const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${fullName.split(" ")[0]}`;
 
     const newUser = new User({
       fullName: fullName,
-      username: username,
+      email: email,
       password: hashedPassword,
       gender: gender,
       profilePic: gender === "male" ? boyProfilePic : girlProfilePic,
@@ -45,7 +45,7 @@ export const register = async (req, res) => {
       res.status(201).json({
         _id: newUser._id,
         fullName: newUser.fullName,
-        username: newUser.username,
+        email: newUser.email,
         profilePic: newUser.profilePic,
       });
     } else {
@@ -59,8 +59,8 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
   try {
-    const { username, password } = req.body;
-    const user = await User.findOne({ username: username });
+    const { email, password } = req.body;
+    const user = await User.findOne({ email: email });
 
     // CHECK PASSWORD HERE
     const isPasswordCorrect = await bcrypt.compare(
@@ -79,7 +79,7 @@ export const login = async (req, res) => {
     res.status(200).json({
         _id: user._id,
         fullName : user.fullName,
-        username : user.username,
+        email : user.email,
         profilePic : user.profilePic
     });
     
