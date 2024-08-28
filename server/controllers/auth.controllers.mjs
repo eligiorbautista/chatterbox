@@ -4,7 +4,7 @@ import generateTokenAndSetCookie from "../utils/generateToken.mjs";
 
 export const register = async (req, res) => {
   try {
-    const { fullName, email, password, confirmPassword, gender } = req.body;
+    const { fullName, email, password, confirmPassword } = req.body;
 
     // check if password and confirm password match
     if (password !== confirmPassword) {
@@ -29,7 +29,7 @@ export const register = async (req, res) => {
       fullName: fullName,
       email: email,
       password: hashedPassword,
-      gender: gender,
+      //gender: gender,
       profilePic: profilePic,
     });
 

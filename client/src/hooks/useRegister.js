@@ -14,14 +14,14 @@ const useRegister = () => {
     email,
     password,
     confirmPassword,
-    gender,
+  //  gender,
   }) => {
     const success = handleInputErrors({
       fullName,
       email,
       password,
       confirmPassword,
-      gender,
+     // gender,
     });
 
     if (!success) return;
@@ -36,7 +36,7 @@ const useRegister = () => {
           email: email,
           password: password,
           confirmPassword: confirmPassword,
-          gender: gender,
+       //   gender: gender,
         }),
       });
 
@@ -69,10 +69,10 @@ function handleInputErrors({
   email,
   password,
   confirmPassword,
-  gender,
+ // gender,
 }) {
   // Missing input fields
-  if (!fullName || !email || !password || !confirmPassword || !gender) {
+  if (!fullName || !email || !password || !confirmPassword) {
     toast.error("Please fill all the fields.");
     return false;
   }

@@ -10,7 +10,7 @@ const Register = () => {
         email: "",
         password: "",
         confirmPassword: "",
-        gender: ""
+        // gender: ""
     })
 
     const { loading, register } = useRegister()
@@ -68,7 +68,7 @@ const Register = () => {
                         />
                     </div>
 
-                    <GenderCheckbox onCheck={handleCheckBoxChange} selectedGender={inputs.gender} />
+                    {/* <GenderCheckbox onCheck={handleCheckBoxChange} selectedGender={inputs.gender} /> */}
 
                     {/* <div >
                         <label className='label'>
