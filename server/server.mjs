@@ -8,18 +8,23 @@ import userRoutes from "./routes/user.routes.mjs";
 
 import connectToMongoDB from "./db/connectToMongoDB.mjs";
 import { app, server } from "./socket/socket.mjs";
-import cors from 'cors'
+import cors from "cors";
+import path from "path";
 
-app.use(cors({
-  origin: 'http://localhost:3000',   
-  methods: ['GET', 'POST'],
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+    credentials: true,
+  })
+);
 
 dotenv.config();
 
 // const app = express();
 const PORT = process.env.PORT;
+
+const __dirname = path.resolve();
 
 app.use(express.json());
 
@@ -34,6 +39,10 @@ app.get("/", (req, res) => {
   // root route : htt[]
   res.send("Hello, World!");
 });
+
+app.use(express.static(path.join(__dirname, '/client/dist')));
+
+app.get("*", (req, res)=>{path.join(__dirname, 'client', 'dist', 'index.html')})
 
 server.listen(PORT, () => {
   connectToMongoDB();
