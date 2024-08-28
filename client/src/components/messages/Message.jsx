@@ -1,15 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import useConversation from '../../zustand/useConversation';
+import { useAuthContext } from '../../context/AuthContext'
+import { toast } from 'sonner';
 
-const Message = () => {
+const Message = ({ message }) => {
+    const { authUser } = useAuthContext(); 
+    const { selectedConversation } = useConversation();
+    const fromMe = message.senderId === authUser._id;
+    const chatClassName = fromMe ? 'chat-end' : 'chat-start';
+    const profilePic = fromMe ? authUser.profilePic : selectedConversation?.profilePic;
+    const bubbleBgColor = fromMe ? 'bg-gray-800' : "";
+
+    // toast.info(authUser._id)
+
     return (
-        <div className='chat chat-end'>
+        <div className={`chat ${chatClassName}`}>
             <div className="chat-image avatar">
                 <div className="w-9 rounded-full">
-                    <img src="https://scontent.fmnl4-4.fna.fbcdn.net/v/t39.30808-6/455696302_2887886011370036_8789663979796135240_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeHFlmY1mPNuzIT88ppz1k_qQ6ihiJJ7dE9DqKGIknt0TzaVfLnuKYajiwzpIsWF79ipPjXpoxET7GB1Cx-sl9Bk&_nc_ohc=TKFF43MtrG4Q7kNvgETlJqy&_nc_ht=scontent.fmnl4-4.fna&oh=00_AYBDi_wcPWItBYs-GoyduwZ8qL4Tjggf2797DXafb5pbew&oe=66D1E87C" alt="" />
+                    <img src={profilePic} />
                 </div>
             </div>
-            <div className="chat-bubble text-white bg-gray-800 p-2 text-sm">Hello, World!</div>
-            <div className="chat-footer text-white opacity-50 pt-2 text-sx flex gap-1 items-center">12:27</div>
+            <div className={`chat-bubbletext-white ${bubbleBgColor} p-2 text-sm text-start`}>{message.message}</div>
+            <div className="chat-footer  text-white opacity-50 pt-2 text-xs flex gap-1 items-center">12:27</div>
         </div>
     )
 }

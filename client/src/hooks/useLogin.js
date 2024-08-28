@@ -30,7 +30,6 @@ const useLogin = () => {
       }
 
       toast.success(`Logged in successfully. Welcome, ${data.fullName}`);
-
       localStorage.setItem("chatterbox-user", JSON.stringify(data));
       setAuthUser(data);
     } catch (error) {

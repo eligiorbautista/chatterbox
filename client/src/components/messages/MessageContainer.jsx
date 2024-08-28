@@ -1,19 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Messages from './Messages'
 import MessageForm from './MessageForm'
 import { BiSolidConversation } from "react-icons/bi";
+import useConversation from '../../zustand/useConversation';
 
 const MessageContainer = () => {
 
-    const noChatSelected = true;
+    const { selectedConversation, setSelectedConversation } = useConversation();
+
+    useEffect(() => {
+
+        // clean up function (on mount)
+        return () => setSelectedConversation(null)
+    }, [])
 
     return (
         <div className='md:min-w-[450px] flex flex-col'>
-            {noChatSelected ? (<NoChatSelected />) : (
+            {!selectedConversation ? (<NoChatSelected />) : (
                 <>
                     {/* Header */}
                     <div className="bg-gray-900 px-4 py-2  mb-2">
-                        <span className="label-text  text-white">To:</span> <span className="text-white font-bold">Eli Bautista</span>
+                        <span className="text-white font-bold">{selectedConversation.fullName}</span>
                     </div>
 
                     {/* Messages */}

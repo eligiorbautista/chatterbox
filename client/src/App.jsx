@@ -18,16 +18,15 @@ function App() {
   return (
     <div className='p-4 h-screen flex items-center justify-center'>
       <Routes>
-        <Route path="/" element={authUser ? <Home /> : <Navigate to="/login" />} />
-        <Route path="/login" element={authUser ? <Navigate to="/" /> : <Login />} />
-        <Route path="/register" element={authUser ? <Navigate to="/" /> : <Register />} />
-
-        <Route path="/account-recovery" element={<EmailForm />} />
-        <Route path="/change-password" element={<NewPassword />} />
-
-      </Routes>
+				<Route path='/' element={authUser ? <Home /> : <Navigate to={"/login"} />} />
+				<Route path='/login' element={authUser ? <Navigate to='/' /> : <Login />} />
+				<Route path='/register' element={authUser ? <Navigate to='/' /> : <Register />} />
+			</Routes>
     </div>
   )
 }
 
 export default App
+
+{/* <Route path="/account-recovery" element={<EmailForm />} />
+<Route path="/change-password" element={<NewPassword />} /> */}

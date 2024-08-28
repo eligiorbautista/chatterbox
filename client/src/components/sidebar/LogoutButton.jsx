@@ -13,7 +13,7 @@ const LogoutButton = () => {
 
   return (
     <div
-      className="mt-auto flex items-center justify-center space-x-2 bg-gray-900 text-white py-2 px-4 rounded-md cursor-pointer text-sm hover:bg-white hover:text-black"
+      className=" mt-auto flex items-center justify-center space-x-2 bg-gray-900 text-white py-2 px-4 rounded-md cursor-pointer text-sm hover:bg-white hover:text-black"
       onClick={handleLogout}
     >
       {!loading ? (

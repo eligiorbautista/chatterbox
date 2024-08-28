@@ -15,25 +15,22 @@ export const register = async (req, res) => {
 
     // check if email already exists
     if (user) {
-      return res.status(400).json({ error: "Username already exists." });
+      return res.status(400).json({ error: "Email already exists." });
     }
 
     // HASH PASSWORD HERE
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // api to set default avatar for the users
-    // https://avatar-placeholder.iran.liara.run/document
-
-    const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${fullName.split(" ")[0]}`;
-    const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${fullName.split(" ")[0]}`;
+    // API to set default avatar for the users using UI Avatars
+    const profilePic = `https://ui-avatars.com/api/?name=${encodeURIComponent(fullName)}&background=random&bold=true`;
 
     const newUser = new User({
       fullName: fullName,
       email: email,
       password: hashedPassword,
       gender: gender,
-      profilePic: gender === "male" ? boyProfilePic : girlProfilePic,
+      profilePic: profilePic,
     });
 
     if (newUser) {
@@ -56,6 +53,7 @@ export const register = async (req, res) => {
     res.status(500).json({ error: "Internal server error." });
   }
 };
+
 
 export const login = async (req, res) => {
   try {
