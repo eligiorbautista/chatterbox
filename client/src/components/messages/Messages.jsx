@@ -1,19 +1,34 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Message from './Message';
 import '../../index.css';
 import useGetMessages from '../../hooks/useGetMessages';
 import MessageSkeleton from '../skeletons/MessageSkeleton';
 import useConversation from '../../zustand/useConversation';
+import useListenMessages from '../../hooks/useListenMessages';
 
 const Messages = () => {
   const { messages, loading } = useGetMessages();
   const { selectedConversation } = useConversation();
+  const lastMessageRef = useRef();
+
+  useListenMessages();
+
+  useEffect(() => {
+    setTimeout(() => {
+      lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, 50)
+  }, [messages])
+
+
+
 
   return (
     <div className="px-4 flex-1 overflow-auto py-4">
       {/* IF THERE ARE MESSAGES */}
       {!loading && messages.length > 0 && messages.map((message, _key = message._id) => (
-        <Message key={_key} message={message} />
+        <div key={_key} ref={lastMessageRef}>
+          <Message message={message} />
+        </div>
       ))}
 
       {/* IF LOADING */}

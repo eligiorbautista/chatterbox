@@ -7,10 +7,18 @@ import messageRoutes from "./routes/message.routes.mjs";
 import userRoutes from "./routes/user.routes.mjs";
 
 import connectToMongoDB from "./db/connectToMongoDB.mjs";
+import { app, server } from "./socket/socket.mjs";
+import cors from 'cors'
+
+app.use(cors({
+  origin: 'http://localhost:3000',   
+  methods: ['GET', 'POST'],
+  credentials: true
+}));
 
 dotenv.config();
 
-const app = express();
+// const app = express();
 const PORT = process.env.PORT;
 
 app.use(express.json());
@@ -27,7 +35,7 @@ app.get("/", (req, res) => {
   res.send("Hello, World!");
 });
 
-app.listen(PORT, () => {
-  connectToMongoDB(); 
+server.listen(PORT, () => {
+  connectToMongoDB();
   console.log(`Server running on port ${PORT}`);
 });

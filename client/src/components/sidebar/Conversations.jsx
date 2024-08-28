@@ -6,7 +6,7 @@ const Conversations = () => {
   const { loading, conversations } = useGetConversations();
   console.log(`Conversations: ${conversations}`);
   return (
-    <div className='py-0 flex flex-col overflow-auto mb-2'>
+    <div className='py-0 flex flex-col overflow-auto mb-1'>
       {conversations.map((conversation, _index) => (
         <Conversation key={conversation._id} conversation={conversation} lastIdx={_index === conversation.length - 1} />
       ))}

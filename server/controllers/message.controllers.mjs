@@ -1,5 +1,6 @@
 import Conversation from "../models/conversation.model.mjs";
 import Message from "../models/message.model.mjs";
+import { getReceiverSocketId, io } from "../socket/socket.mjs"; 
 
 export const sendMessage = async (req, res) => {
   try {
@@ -28,6 +29,13 @@ export const sendMessage = async (req, res) => {
     }
 
     // SOCKET IO FUNCTIONALITY WILL GO HERE
+    const recieverSocketId = getReceiverSocketId(receiverId);
+
+    // if reciever is online
+    if(recieverSocketId){
+      // io.to(<socket_id>).emit() is used to send events to specific client 
+      io.to(recieverSocketId).emit('newMessage', newMessage);
+    }
 
     // await conversation.save(); 1 sec
     // await newMessage.save(); 2 sec

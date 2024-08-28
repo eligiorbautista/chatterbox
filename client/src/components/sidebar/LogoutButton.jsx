@@ -7,13 +7,13 @@ const LogoutButton = () => {
 
   const handleLogout = async () => {
     if (!loading) {
-      await logout();  
+      await logout();
     }
   };
 
   return (
     <div
-      className=" mt-auto flex items-center justify-center space-x-2 bg-gray-900 text-white py-2 px-4 rounded-md cursor-pointer text-sm hover:bg-white hover:text-black"
+      className=" mt-auto flex items-center justify-center space-x-2 drop-shadow-md bg-stone-900 text-white py-2 px-4 rounded-md cursor-pointer text-sm hover:bg-stone-800 "
       onClick={handleLogout}
     >
       {!loading ? (
