@@ -35,10 +35,10 @@ app.use("/api/messages", messageRoutes);
 app.use("/api/users", userRoutes);
 
 // ROUTES
-app.get("/", (req, res) => {
-  // root route : htt[]
-  res.send("Hello, World!");
-});
+// app.get("/", (req, res) => {
+//   // root route : htt[]
+//   res.send("Hello, World!");
+// });
 
 app.use(express.static(path.join(__dirname, '/client/dist')));
 
