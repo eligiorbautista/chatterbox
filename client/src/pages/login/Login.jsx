@@ -49,7 +49,7 @@ const Login = () => {
                     Continue with Google
                 </button>
                 <span className="text-sm mt-5 inline-block cursor-default text-black">
-                    Don't have an account yet? <Link to="/register" className="text-sm hover:underline hover:text-black ml-0.5">Register</Link>
+                    Don't have an account yet? <Link to="/register" className="font-semibold text-sm hover:underline hover:text-black ml-0.5">Register</Link>
                 </span>
                 <div className="text-center text-xs mt-8 text-black">
                     &copy; {new Date().getFullYear()} <span className="font-semibold text-black">Eli Bautista</span>. All rights reserved.

@@ -1,59 +1,53 @@
 import User from "../models/user.model.mjs";
 import bcrypt from "bcryptjs";
 import generateTokenAndSetCookie from "../utils/generateToken.mjs";
+ 
 
 export const register = async (req, res) => {
   try {
-    const { fullName, email, password, confirmPassword } = req.body;
-
-    // check if password and confirm password match
+    const { fullName, email, password, confirmPassword, profilePic } = req.body;
+    // Check if password is the same with the confirm password
     if (password !== confirmPassword) {
       return res.status(400).json({ error: "Passwords don't match." });
     }
-
+    // Check if user already exists
     const user = await User.findOne({ email: email });
-
-    // check if email already exists
     if (user) {
       return res.status(400).json({ error: "Email already exists." });
     }
-
     // HASH PASSWORD HERE
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // API to set default avatar for the users using UI Avatars
-    const profilePic = `https://ui-avatars.com/api/?name=${encodeURIComponent(fullName)}&background=random&bold=true`;
+    // If no profile picture is provided, use UI Avatars API
+    const profilePicture = profilePic || `https://ui-avatars.com/api/?name=${encodeURIComponent(fullName)}&background=random&bold=true`;
 
     const newUser = new User({
-      fullName: fullName,
-      email: email,
+      fullName,
+      email,
       password: hashedPassword,
-      //gender: gender,
-      profilePic: profilePic,
+      profilePic: profilePicture,
     });
 
     if (newUser) {
       // GENERATE JWT TOKEN HERE
       generateTokenAndSetCookie(newUser._id, res);
-
       await newUser.save();
 
-      res.status(201).json({
+      return res.status(201).json({
         _id: newUser._id,
         fullName: newUser.fullName,
         email: newUser.email,
         profilePic: newUser.profilePic,
       });
     } else {
-      res.status(400).json({ error: "Invalid user data." });
+      return res.status(400).json({ error: "Invalid user data." });
     }
   } catch (error) {
     console.log(`Error in register controller: ${error.message}`);
-    res.status(500).json({ error: "Internal server error." });
+    return res.status(500).json({ error: "Internal server error." });
   }
-};
-
+}; 
 
 export const login = async (req, res) => {
   try {
