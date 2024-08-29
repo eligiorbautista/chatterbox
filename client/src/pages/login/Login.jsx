@@ -36,8 +36,8 @@ const Login = () => {
                         </label>
                         <input onChange={(e) => setPassword(e.target.value)} type="password" id="password" placeholder='Enter password' className='w-full input input-bordered rounded-md bg-white   drop-shadow-md text-black input-sm h-10' />
                     </div>
-                    <div className="flex justify-between mt-2">
-                        <Link  onClick={() => toast.info("This feature is not available yet.", { position: "top-center" })} className="text-sm hover:underline hover:text-black text-black ">Forgot Password?</Link>
+                    <div className="flex justify-end mt-2 ">
+                        <Link  onClick={() => toast.info("This feature is not available yet.", { position: "top-center" })} className="text- hover:underline hover:text-black text-black ">Forgot Password?</Link>
                     </div>
                     <button disabled={loading} className="btn btn-sm h-10 bg-stone-900 hover:bg-stone-800 text-white border-none  w-full mt-5">
                         {loading ? <span className='loading loading-spinner'></span> : "Log In"}
