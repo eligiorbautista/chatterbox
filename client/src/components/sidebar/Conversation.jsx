@@ -20,7 +20,7 @@ const Conversation = ({ conversation, _index, lastIdx }) => {
                 <div className="flex flex-col flex-1">
                     <div className='flex gap-3 justify-between'>
                         <p className=' text-black  text-sm'>{conversation.fullName}</p>
-                        <p className={`text-xs  font-semibold ${isOnline ? 'text-green-500' : 'text-black'} ${isSelected ? 'text-lime-600' : ''}`}>
+                        <p className={`text-xs  font-semibold ${isOnline ? 'text-green-500' : 'text-black'} `}>
                             {isOnline ? 'online' : 'offline'}
                         </p>
                     </div>
